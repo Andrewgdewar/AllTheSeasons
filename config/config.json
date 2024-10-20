@@ -11,7 +11,8 @@
     "SUMMER": 25,
     "AUTUMN": 1,
     "WINTER": 4,
-    "SPRING": 1
+    "SPRING": 1,
+    "STORM": 3
   },
   "lessFog": false,
   "lessRain": false,

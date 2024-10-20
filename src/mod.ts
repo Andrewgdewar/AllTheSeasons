@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { DependencyContainer } from "tsyringe";
-import { IPostSptLoadMod } from "@spt/models/external/IPostSptLoadMod";
+import { IPreSptLoadMod } from "@spt/models/external/IPreSptLoadMod";
 import {
   enable,
   seasonLength,
@@ -14,21 +14,18 @@ import { weatherBySeason } from "../config/weatherConfigAdvanced.json";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
 import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
-import { ISeasonalEventConfig } from "@spt/models/spt/config/ISeasonalEventConfig";
 import { StaticRouterModService } from "@spt/services/mod/staticRouter/StaticRouterModService";
-import { getWeightedSeason, saveToFile, SeasonMap } from "./utlis";
+import { getWeightedSeason, seasonDates, SeasonMap } from "./utlis";
 
-class AllTheSeasons implements IPostSptLoadMod {
-  postSptLoad(container: DependencyContainer): void {
+class AllTheSeasons implements IPreSptLoadMod {
+  preSptLoad(container: DependencyContainer): void {
     const configServer = container.resolve<ConfigServer>("ConfigServer");
+
     const WeatherValues = configServer.getConfig<IWeatherConfig>(
       ConfigTypes.WEATHER
     );
-    // const ISeasonalEventConfig = configServer.getConfig<ISeasonalEventConfig>(
-    //   ConfigTypes.SEASONAL_EVENT
-    // );
 
-    saveToFile(WeatherValues, "event.json");
+    WeatherValues.seasonDates = seasonDates;
 
     const staticRouterModService = container.resolve<StaticRouterModService>(
       "StaticRouterModService"
@@ -47,6 +44,10 @@ class AllTheSeasons implements IPostSptLoadMod {
     WeatherValues.weather =
       weatherBySeason[SeasonMap[WeatherValues.overrideSeason]];
 
+    // new Array(25).fill("").forEach(() => {
+    //   console.log(getWeightedSeason());
+    // });
+
     enable &&
       staticRouterModService.registerStaticRouter(
         `AllTheSeasons`,
@@ -60,7 +61,7 @@ class AllTheSeasons implements IPostSptLoadMod {
                 case randomSeason:
                   // Set a random season after each raid end
                   WeatherValues.overrideSeason = getWeightedSeason();
-                  console.log(WeatherValues.overrideSeason);
+
                   consoleMessages &&
                     console.log(
                       "AllTheSeasons: Random season set to: ",
