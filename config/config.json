@@ -1,0 +1,20 @@
+{
+  "enable": true,
+  "seasonLength": {
+    "SUMMER": 60,
+    "AUTUMN": 10,
+    "WINTER": 20,
+    "SPRING": 10
+  },
+  "randomSeason": true,
+  "randomSeasonWeighting": {
+    "SUMMER": 25,
+    "AUTUMN": 1,
+    "WINTER": 4,
+    "SPRING": 1
+  },
+  "lessFog": false,
+  "lessRain": false,
+  "clearSkies": false,
+  "consoleMessages": true
+}
