@@ -6,11 +6,7 @@ import {
   seasonLength,
   randomSeason,
   consoleMessages,
-  lessFog,
-  lessRain,
-  clearSkies,
 } from "../config/config.json";
-import { weatherBySeason } from "../config/weatherConfigAdvanced.json";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
 import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
@@ -39,14 +35,6 @@ class AllTheSeasons implements IPreSptLoadMod {
         "AllTheSeasons: Season set to:",
         SeasonMap[WeatherValues.overrideSeason]
       );
-
-    //Set weather for current season
-    WeatherValues.weather =
-      weatherBySeason[SeasonMap[WeatherValues.overrideSeason]];
-
-    // new Array(25).fill("").forEach(() => {
-    //   console.log(getWeightedSeason());
-    // });
 
     enable &&
       staticRouterModService.registerStaticRouter(
@@ -100,23 +88,6 @@ class AllTheSeasons implements IPreSptLoadMod {
                       "Minutes."
                     );
                   break;
-              }
-
-              //Set weather for current season
-              WeatherValues.weather =
-                weatherBySeason[SeasonMap[WeatherValues.overrideSeason]];
-
-              if (lessFog) {
-                WeatherValues.weather.fog.weights = [20, 1, 1, 1, 1];
-              }
-
-              if (lessRain) {
-                WeatherValues.weather.rain.weights = [5, 1, 1];
-                WeatherValues.weather.rainIntensity = { min: 0, max: 0.5 };
-              }
-
-              if (clearSkies) {
-                WeatherValues.weather.clouds.weights = [30, 1, 1, 1, 1, 1];
               }
 
               return output;
