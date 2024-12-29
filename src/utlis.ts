@@ -7,9 +7,12 @@ export const SeasonMap = {
   1: "AUTUMN",
   2: "WINTER",
   3: "SPRING",
-  4: "STORM",
+  4: "AUTUMN_LATE",
+  5: "SPRING_EARLY",
+  6: "STORM",
 };
 
+Season;
 export const getWeightedSeason = (): Season => {
   const all = [];
   const itemKeys = Object.keys(randomSeasonWeighting);

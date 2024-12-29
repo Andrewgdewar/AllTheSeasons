@@ -4,7 +4,7 @@
   "main": "src/mod.js",
   "license": "MIT",
   "author": "DewardianDev",
-  "sptVersion": "^3.9.x",
+  "sptVersion": "^3.10.x",
   "scripts": {
     "setup": "npm i",
     "build": "node ./packageBuild.ts"

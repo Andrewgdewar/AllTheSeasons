@@ -3,16 +3,21 @@
   "seasonLength": {
     "SUMMER": 60,
     "AUTUMN": 10,
-    "WINTER": 20,
-    "SPRING": 10
+    "WINTER": 60,
+    "SPRING": 10,
+    "AUTUMN_LATE": 10,
+    "SPRING_EARLY": 10,
+    "STORM": 10
   },
   "randomSeason": true,
   "randomSeasonWeighting": {
     "SUMMER": 25,
     "AUTUMN": 1,
     "WINTER": 4,
-    "SPRING": 1,
-    "STORM": 3
+    "SPRING": 5,
+    "AUTUMN_LATE": 1,
+    "SPRING_EARLY": 5,
+    "STORM": 6
   },
   "consoleMessages": true
 }
