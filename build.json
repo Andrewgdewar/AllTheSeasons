@@ -14,8 +14,10 @@
   "StartDelay": 0,
   "IgnoreList": [
     "node_modules/",
+    ".github",
     "types/",
     ".idea/",
+    ".releaserc",
     ".git/",
     ".gitea/",
     ".vs/",
