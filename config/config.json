@@ -11,7 +11,7 @@
   },
   "randomSeason": true,
   "randomSeasonWeighting": {
-    "SUMMER": 25,
+    "SUMMER": 20,
     "AUTUMN": 1,
     "WINTER": 4,
     "SPRING": 5,
@@ -19,5 +19,6 @@
     "SPRING_EARLY": 5,
     "STORM": 6
   },
+  "enableMoodyDefault": true,
   "consoleMessages": true
 }

@@ -1,6 +1,13 @@
 import { Season } from "@spt/models/enums/Season";
-import { randomSeasonWeighting } from "../config/config.json";
-import { ISeasonDateTimes } from "@spt/models/spt/config/IWeatherConfig";
+import {
+  randomSeasonWeighting,
+  enableMoodyDefault,
+} from "../config/config.json";
+import {
+  ISeasonDateTimes,
+  IWeatherConfig,
+} from "@spt/models/spt/config/IWeatherConfig";
+import { defaultWeather, moodyDefault, stormWeather } from "./constants";
 
 export const SeasonMap = {
   0: "SUMMER",
@@ -12,7 +19,6 @@ export const SeasonMap = {
   6: "STORM",
 };
 
-Season;
 export const getWeightedSeason = (): Season => {
   const all = [];
   const itemKeys = Object.keys(randomSeasonWeighting);
@@ -91,3 +97,34 @@ export const seasonDates: ISeasonDateTimes[] = [
     endMonth: 12,
   },
 ];
+
+export const setWeatherValues = (WeatherValues: IWeatherConfig) => {
+  switch (WeatherValues.overrideSeason) {
+    case 6:
+      // console.log("setting storm");
+      WeatherValues.weather = {
+        ...WeatherValues.weather,
+        ...stormWeather,
+      };
+      break;
+
+    case 1:
+    case 3:
+    case 5:
+      if (enableMoodyDefault) {
+        // console.log("setting moody");
+        WeatherValues.weather = {
+          ...WeatherValues.weather,
+          ...moodyDefault,
+        };
+        break;
+      }
+    default:
+      // console.log("setting Default");
+      WeatherValues.weather = {
+        ...WeatherValues.weather,
+        ...defaultWeather,
+      };
+      break;
+  }
+};

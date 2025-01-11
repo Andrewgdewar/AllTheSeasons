@@ -6,12 +6,18 @@ import {
   seasonLength,
   randomSeason,
   consoleMessages,
+  enableMoodyDefault,
 } from "../config/config.json";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
 import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
 import { StaticRouterModService } from "@spt/services/mod/staticRouter/StaticRouterModService";
-import { getWeightedSeason, seasonDates, SeasonMap } from "./utlis";
+import {
+  getWeightedSeason,
+  seasonDates,
+  SeasonMap,
+  setWeatherValues,
+} from "./utlis";
 
 class AllTheSeasons implements IPreSptLoadMod {
   preSptLoad(container: DependencyContainer): void {
@@ -30,6 +36,8 @@ class AllTheSeasons implements IPreSptLoadMod {
     WeatherValues["last"] = Date.now();
     WeatherValues.overrideSeason = getWeightedSeason();
 
+    setWeatherValues(WeatherValues);
+
     consoleMessages &&
       console.log(
         "AllTheSeasons: Season set to:",
@@ -41,7 +49,7 @@ class AllTheSeasons implements IPreSptLoadMod {
         `AllTheSeasons`,
         [
           {
-            url: "/client/match/offline/end",
+            url: "/client/match/local/end",
             action: async (_url, info, sessionId, output) => {
               const currentSeason = SeasonMap[WeatherValues.overrideSeason];
 
@@ -61,7 +69,7 @@ class AllTheSeasons implements IPreSptLoadMod {
                   seasonLength[currentSeason] * 60000:
                   WeatherValues["last"] = Date.now();
 
-                  if (WeatherValues.overrideSeason === 3) {
+                  if (WeatherValues.overrideSeason > 5) {
                     WeatherValues.overrideSeason = 0;
                   } else {
                     WeatherValues.overrideSeason += 1;
@@ -89,6 +97,8 @@ class AllTheSeasons implements IPreSptLoadMod {
                     );
                   break;
               }
+
+              setWeatherValues(WeatherValues);
 
               return output;
             },
