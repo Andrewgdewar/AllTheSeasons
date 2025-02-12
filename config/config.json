@@ -7,7 +7,7 @@
     "SPRING": 10,
     "AUTUMN_LATE": 10,
     "SPRING_EARLY": 10,
-    "STORM": 10
+    "STORM": 0
   },
   "randomSeason": true,
   "randomSeasonWeighting": {
@@ -17,8 +17,9 @@
     "SPRING": 5,
     "AUTUMN_LATE": 1,
     "SPRING_EARLY": 5,
-    "STORM": 6
+    "STORM": 0
   },
   "enableMoodyDefault": true,
-  "consoleMessages": true
+  "consoleMessages": true,
+  "stormWeatherChancePercent": 20
 }
