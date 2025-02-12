@@ -2,6 +2,7 @@ import { Season } from "@spt/models/enums/Season";
 import {
   randomSeasonWeighting,
   enableMoodyDefault,
+  stormWeatherChancePercent
 } from "../config/config.json";
 import {
   ISeasonDateTimes,
@@ -99,32 +100,21 @@ export const seasonDates: ISeasonDateTimes[] = [
 ];
 
 export const setWeatherValues = (WeatherValues: IWeatherConfig) => {
-  switch (WeatherValues.overrideSeason) {
-    case 6:
-      // console.log("setting storm");
-      WeatherValues.weather = {
-        ...WeatherValues.weather,
-        ...stormWeather,
-      };
-      break;
-
-    case 1:
-    case 3:
-    case 5:
-      if (enableMoodyDefault) {
-        // console.log("setting moody");
-        WeatherValues.weather = {
-          ...WeatherValues.weather,
-          ...moodyDefault,
-        };
-        break;
-      }
-    default:
-      // console.log("setting Default");
-      WeatherValues.weather = {
-        ...WeatherValues.weather,
-        ...defaultWeather,
-      };
-      break;
+  let randomChance = Math.floor(Math.random() * 100 + 1)
+  if (stormWeatherChancePercent > randomChance) {
+    WeatherValues.weather = {
+      ...WeatherValues.weather,
+      ...stormWeather,
+    };
+  } else if (enableMoodyDefault) {
+    WeatherValues.weather = {
+      ...WeatherValues.weather,
+      ...moodyDefault,
+    };
+  } else {
+    WeatherValues.weather = {
+      ...WeatherValues.weather,
+      ...defaultWeather,
+    };
   }
 };
